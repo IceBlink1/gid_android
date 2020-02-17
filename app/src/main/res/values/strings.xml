@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">GID</string>
+    <string name="feed">Feed</string>
+    <string name="discounts">Discounts</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+
+    <string-array name="settings_general_languages_values">
+        <item>EN</item>
+        <item>RU</item>
+    </string-array>
+
+    <string-array name="settings_general_languages_entries" >
+        <item>English</item>
+        <item>Русский</item>
+    </string-array>
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preference_screen"
+    android:key="preference_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_on_secondary"
+    android:orientation="vertical"
+    android:enabled="true">
+
+
+<androidx.preference.PreferenceCategory
+    android:title="General"
+    android:key="settings_block_one"
+    android:enabled="true">
+
+    <androidx.preference.ListPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="settings_general"
+        android:title="Language"
+        android:visibility="visible"
+        android:entries="@array/settings_general_languages_entries"
+        android:entryValues="@array/settings_general_languages_values"/>
+
+</androidx.preference.PreferenceCategory>
+
+
+
+</androidx.preference.PreferenceScreen>
