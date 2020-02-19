@@ -14,4 +14,15 @@
         <item>English</item>
         <item>Русский</item>
     </string-array>
+    <string-array name="settings_platforms_values">
+        <item>steam</item>
+        <item>egs</item>
+        <item>psn</item>
+    </string-array>
+
+    <string-array name="settings_platforms_entries" >
+        <item>Steam</item>
+        <item>Epic Games Store</item>
+        <item>Playstation Network</item>
+    </string-array>
 </resources>

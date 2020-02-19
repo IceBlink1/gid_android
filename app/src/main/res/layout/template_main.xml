@@ -8,6 +8,15 @@
     android:background="@color/design_default_color_on_secondary"
     android:orientation="vertical">
 
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <fragment-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:name="ru.com.gid.SettingsFragment">-->
+<!--        </fragment>-->
+<!--    </ScrollView>-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
