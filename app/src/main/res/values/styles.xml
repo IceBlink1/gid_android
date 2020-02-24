@@ -7,4 +7,14 @@
         <item name="colorPrimaryDark">@android:color/background_dark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="GIDTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">#BB86FC</item>
+        <item name="colorPrimaryDark">121212</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14px</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
 </resources>
