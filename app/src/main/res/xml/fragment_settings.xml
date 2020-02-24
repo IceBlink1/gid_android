@@ -67,15 +67,15 @@
             android:title="Synchronization with game library"
             android:summary="Notify when app synchronizes with game library"/>
     </androidx.preference.PreferenceCategory>
-    <androidx.preference.PreferenceCategory
-        android:title="Profile"
-        android:enabled="true"
-        android:key="settings_profile"
-        app:initialExpandedChildrenCount="0"
-        android:entries="@array/settings_platforms_entries"
-        android:entryValues="@array/settings_platforms_values">
+<!--    <androidx.preference.PreferenceCategory-->
+<!--        android:title="Profile"-->
+<!--        android:enabled="true"-->
+<!--        android:key="settings_profile"-->
+<!--        app:initialExpandedChildrenCount="0"-->
+<!--        android:entries="@array/settings_platforms_entries"-->
+<!--        android:entryValues="@array/settings_platforms_values">-->
 
-    </androidx.preference.PreferenceCategory>
+<!--    </androidx.preference.PreferenceCategory>-->
 
     <androidx.preference.PreferenceCategory
         android:title="Platforms"

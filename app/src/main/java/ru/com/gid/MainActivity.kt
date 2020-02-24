@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.nav_host_fragment_container, Fragment())
             .replace(R.id.nav_host_fragment_container, SettingsFragment())
             .commit()
         setContentView(R.layout.template_main)
