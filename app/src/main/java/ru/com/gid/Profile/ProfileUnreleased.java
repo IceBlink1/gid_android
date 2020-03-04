@@ -1,4 +1,4 @@
-package ru.com.gid;
+package ru.com.gid.Profile;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -12,24 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Profile extends Fragment {
+import ru.com.gid.R;
 
-    private ProfileViewModel mViewModel;
+public class ProfileUnreleased extends Fragment {
 
-    public static Profile newInstance() {
-        return new Profile();
+    private ProfileUnreleasedViewModel mViewModel;
+
+    public static ProfileUnreleased newInstance() {
+        return new ProfileUnreleased();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_profile_unreleased, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(ProfileUnreleasedViewModel.class);
         // TODO: Use the ViewModel
     }
 

@@ -5,20 +5,14 @@
     android:id="@+id/title_template"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/GIDTheme"
-    android:orientation="vertical">
+    style="@style/GIDTheme">
 
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_host_fragment_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:navGraph = "@navigation/bottom_navigation">-->
-<!--    </fragment>-->
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_bar"
         app:layout_constraintLeft_toLeftOf="parent"

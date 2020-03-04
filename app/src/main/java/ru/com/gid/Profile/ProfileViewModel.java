@@ -1,4 +1,4 @@
-package ru.com.gid;
+package ru.com.gid.Profile;
 
 import androidx.lifecycle.ViewModel;
 

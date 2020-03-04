@@ -52,4 +52,7 @@
     <string name="profile_title_unreleased">To be released</string>
     <string name="profile_title_reviews">Reviews</string>
     <string name="profile_title_logins">Logins</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
