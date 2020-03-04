@@ -24,7 +24,7 @@ public class ProfileScrollPagerAdapter extends FragmentStatePagerAdapter {
     };
 
     public ProfileScrollPagerAdapter(FragmentManager fm) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @NonNull
@@ -39,6 +39,8 @@ public class ProfileScrollPagerAdapter extends FragmentStatePagerAdapter {
         return profileElements.size();
     }
 
+
+    //TODO: extract strings to list
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
