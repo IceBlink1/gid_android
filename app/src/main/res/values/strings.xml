@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GID</string>
+    <string name="title_activity_login_page">LoginPageActivity</string>
 </resources>
