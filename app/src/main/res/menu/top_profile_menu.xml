@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/profile_library"
+        android:title="@string/profile_title_library"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/profile_wishlist"
+        android:title="@string/profile_title_wishlist"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/profile_unrealeased"
+        android:title="@string/profile_title_unreleased"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/profile_reviews"
+        android:title="@string/profile_title_reviews"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/profile_login"
+        android:title="@string/profile_title_logins"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+</menu>

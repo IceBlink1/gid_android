@@ -3,11 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profile">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Profile.Profile">
 
-    <TextView
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/profile_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        app:menu="@menu/top_profile_menu"
+        style="@style/GIDTheme">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/profile_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:visibility="visible"
+            app:tabMode="scrollable">
+
+        </com.google.android.material.tabs.TabLayout>
+
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/profile_top_nav_host"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:navGraph = "@navigation/profile_top_navigation"-->
+<!--        >-->
+<!--    </androidx.fragment.app.FragmentContainerView>-->
+    </androidx.viewpager.widget.ViewPager>
 
 </FrameLayout>
