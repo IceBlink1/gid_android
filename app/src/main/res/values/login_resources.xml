@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="DoneButton">
+        Done
+    </string>
+    <string name="BackButton">
+        Back
+    </string>
+    <string name="ContinueButton">
+        Continue
+    </string>
+
+    <string-array name="welcome_page">
+        <item>Welcome to GID App</item>
+        <item>The best way to find, connect your libraries and track games in your wishlist.</item>
+    </string-array>
+
+    <string-array name="login_or_signup_page">
+        <item>Create profile</item>
+        <item>Rate games, add them to your library or wishlist and more.</item>
+        <item>Log in</item>
+        <item>Sign up</item>
+    </string-array>
+
+    <string-array name="signup_page">
+        <item>Create account</item>
+        <item>What\'s your email?</item>
+        <item>Pick a password</item>
+        <item>Use from 8 to 30 characters with at least 1 number.</item>
+    </string-array>
+
+    <string-array name="platform_page">
+        <item>Your platforms</item>
+        <item>Tell us which platforms you have to make our app more useful specifically to you</item>
+        <item>Mac</item>
+        <item>Windows</item>
+        <item>Linux</item>
+    </string-array>
+
+    <string-array name="notification_page">
+        <item>Your notifications</item>
+        <item>When game in my wishlist is on sale</item>
+        <item>When new releases I marked arrive</item>
+        <item>When there is sale in store</item>
+        <item>When game gets update</item>
+        <item>When new games are synced to my library</item>
+    </string-array>
+
+    <string-array name="start_page">
+        <item>Ready to start?</item>
+        <item>You\'ve completed setting up your account and now ready to go.</item>
+    </string-array>
+</resources>
