@@ -35,14 +35,7 @@ public class GameButtonFactory {
 
     private static Callable<ImageButtonWrapper> getGameButtonAsync(final Context context, final int id, final int width, final int height) throws IOException {
 
-        final ImageButtonWrapper contains = findButtonById(id);
-        if (contains != null)
-            return new Callable<ImageButtonWrapper>() {
-                @Override
-                public ImageButtonWrapper call() throws Exception {
-                    return contains;
-                }
-            };
+
         return new Callable<ImageButtonWrapper>() {
             @Override
             public ImageButtonWrapper call() throws Exception {
@@ -54,16 +47,44 @@ public class GameButtonFactory {
 
                 background = Bitmap.createScaledBitmap(background, width, height, false);
                 background = background.copy(background.getConfig(), true);
-
-                Bitmap windowsIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_windows)
-                        .copy(background.getConfig(), true);
-
-                windowsIcon = Bitmap.createScaledBitmap(windowsIcon, (int) (ICON_HEIGHT_COEF * height),
-                        (int) (ICON_WIDTH_COEF * width), false);
-
                 Canvas canvas = new Canvas(background);
-                canvas.drawBitmap(windowsIcon, (int) (canvas.getWidth() * MARGIN_ICON_LEFT),
-                        (int) (canvas.getHeight() * (1 - MARGIN_ICON_BOTTOM)), paint);
+                int iconCount = 0;
+                if (model.getPlatforms().contains("windows")) {
+                    Bitmap windowsIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_windows)
+                            .copy(background.getConfig(), true);
+                    windowsIcon = Bitmap.createScaledBitmap(windowsIcon, (int) (ICON_HEIGHT_COEF * height),
+                            (int) (ICON_WIDTH_COEF * width), false);
+
+                    canvas.drawBitmap(windowsIcon, (int) (canvas.getWidth() * MARGIN_ICON_LEFT
+                                    + width * ICON_WIDTH_COEF * iconCount),
+                            (int) (canvas.getHeight() * (1 - MARGIN_ICON_BOTTOM)), paint);
+                    iconCount++;
+                }
+
+                if (model.getPlatforms().contains("mac")) {
+                    Bitmap macIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_mac)
+                            .copy(background.getConfig(), true);
+                    macIcon = Bitmap.createScaledBitmap(macIcon, (int) (ICON_HEIGHT_COEF * height),
+                            (int) (ICON_WIDTH_COEF * width), false);
+
+                    canvas.drawBitmap(macIcon, (int) (canvas.getWidth() * MARGIN_ICON_LEFT
+                                    + width * ICON_WIDTH_COEF * iconCount),
+                            (int) (canvas.getHeight() * (1 - MARGIN_ICON_BOTTOM)), paint);
+                    iconCount++;
+                }
+
+                if (model.getPlatforms().contains("linux")) {
+                    Bitmap linuxIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_linux)
+                            .copy(background.getConfig(), true);
+                    linuxIcon = Bitmap.createScaledBitmap(linuxIcon, (int) (ICON_HEIGHT_COEF * height),
+                            (int) (ICON_WIDTH_COEF * width), false);
+
+                    canvas.drawBitmap(linuxIcon, (int) (canvas.getWidth() * MARGIN_ICON_LEFT
+                                    + width * ICON_WIDTH_COEF * iconCount),
+                            (int) (canvas.getHeight() * (1 - MARGIN_ICON_BOTTOM)), paint);
+                    //iconCount++;
+                }
+
                 ib.setBackground(new BitmapDrawable(context.getResources(), background));
                 buttonWrapperList.add(new ImageButtonWrapper(ib, id));
                 return buttonWrapperList.get(buttonWrapperList.size() - 1);
@@ -85,14 +106,6 @@ public class GameButtonFactory {
             // Log exception
             return null;
         }
-    }
-
-    private static ImageButtonWrapper findButtonById(int id) {
-        for (int i = 0; i < buttonWrapperList.size(); i++) {
-            if (buttonWrapperList.get(i).getId() == id)
-                return buttonWrapperList.get(i);
-        }
-        return null;
     }
 
     public static class ImageButtonWrapper {
