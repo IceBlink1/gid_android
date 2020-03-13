@@ -17,7 +17,7 @@
 
         <activity android:name=".SettingsActivity"/>
 
-        <activity android:name=".LoginPageActivity">
+        <activity android:name=".LoginPage.LoginPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

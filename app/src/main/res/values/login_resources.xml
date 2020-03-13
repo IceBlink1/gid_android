@@ -25,6 +25,12 @@
         <item>Sign up</item>
     </string-array>
 
+    <string-array name="login_page">
+        <item>Log in</item>
+        <item>Enter your email</item>
+        <item>Enter your password</item>
+    </string-array>
+
     <string-array name="signup_page">
         <item>Create account</item>
         <item>What\'s your email?</item>
