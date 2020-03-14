@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".Profile.ProfileLibrary">
 
-    <TextView
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:id="@+id/library_gridlayout">
+
+    </GridLayout>
 
 </FrameLayout>

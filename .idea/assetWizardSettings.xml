@@ -48,10 +48,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/AndroidScreens/Screenshot_1578160409.png" />
-                                      <entry key="outputName" value="placeholder" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Загрузки/iconfinder_steam-square_1608393.png" />
+                                      <entry key="outputName" value="steam_logo" />
                                       <entry key="theme" value="HOLO_DARK" />
-                                      <entry key="themeColor" value="ffffff" />
+                                      <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
                                 </PersistentState>
