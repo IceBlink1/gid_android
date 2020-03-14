@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Profile.Profile">
 
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/profile_pager"
+        style="@style/GIDTheme"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:menu="@menu/top_profile_menu"
-        style="@style/GIDTheme">
+        app:menu="@menu/top_profile_menu">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/profile_tablayout"
@@ -23,15 +23,6 @@
             app:tabMode="scrollable">
 
         </com.google.android.material.tabs.TabLayout>
-
-<!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/profile_top_nav_host"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:navGraph = "@navigation/profile_top_navigation"-->
-<!--        >-->
-<!--    </androidx.fragment.app.FragmentContainerView>-->
     </androidx.viewpager.widget.ViewPager>
 
 </FrameLayout>
