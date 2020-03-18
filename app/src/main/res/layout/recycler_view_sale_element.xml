@@ -7,7 +7,7 @@
     android:id="@+id/imgSale"
     android:layout_width="77dp"
     android:layout_height="103dp"
-    android:src="@drawable/Death_Stranding_Poster"
+    android:src="@drawable/death_stranding_poster"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:padding="5dp"/>
