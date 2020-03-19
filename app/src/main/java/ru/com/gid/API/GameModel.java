@@ -1,4 +1,4 @@
-package ru.com.gid;
+package ru.com.gid.API;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,6 +7,9 @@ import java.util.List;
 
 public class GameModel {
 
+    @SerializedName("steam_id")
+    @Expose
+    private Integer steamId;
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -239,4 +242,11 @@ public class GameModel {
         this.detailedDescription = detailedDescription;
     }
 
+    public Integer getSteamId() {
+        return steamId;
+    }
+
+    public void setSteamId(Integer steamId) {
+        this.steamId = steamId;
+    }
 }

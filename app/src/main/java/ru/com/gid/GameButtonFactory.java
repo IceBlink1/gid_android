@@ -12,16 +12,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import ru.com.gid.API.GameModel;
+
 public class GameButtonFactory {
 
-    private static List<ImageButtonWrapper> buttonWrapperList = new ArrayList<>();
+    private static HashMap<Integer, Bitmap> bitmapHashMap = new HashMap<Integer, Bitmap>();
     private static ExecutorService threadPoolExecutor = Executors.newCachedThreadPool();
 
     private final static double MARGIN_ICON_LEFT = 0.0588;
@@ -29,17 +30,26 @@ public class GameButtonFactory {
     private final static double ICON_HEIGHT_COEF = 0.0552;
     private final static double ICON_WIDTH_COEF = 0.0736;
 
-    public static Future<ImageButtonWrapper> getGameButton(Context context, int id, int width, int height) throws IOException {
+    public static Future<ImageButton> getGameButton(Context context, int id, int width, int height) throws IOException {
         return threadPoolExecutor.submit(getGameButtonAsync(context, id, width, height));
     }
 
-    private static Callable<ImageButtonWrapper> getGameButtonAsync(final Context context, final int id, final int width, final int height) throws IOException {
+    private static Callable<ImageButton> getGameButtonAsync(final Context context, final int id, final int width, final int height) {
 
+        if (bitmapHashMap.containsKey(id))
+            return new Callable<ImageButton>() {
+                @Override
+                public ImageButton call() throws Exception {
+                    ImageButton ib = new ImageButton(context);
+                    ib.setBackground(new BitmapDrawable(context.getResources(), bitmapHashMap.get(id)));
+                    return ib;
+                }
+            };
 
-        return new Callable<ImageButtonWrapper>() {
+        return new Callable<ImageButton>() {
             @Override
-            public ImageButtonWrapper call() throws Exception {
-                GameModel model = App.getApi().getGame().execute().body();
+            public ImageButton call() throws Exception {
+                GameModel model = App.getGameApi().getGameById("Token " + App.getToken(), id).execute().body();
                 Bitmap background = getBitmapFromURL(model.getHeaderImage());
                 ImageButton ib = new ImageButton(context);
                 Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -86,8 +96,8 @@ public class GameButtonFactory {
                 }
 
                 ib.setBackground(new BitmapDrawable(context.getResources(), background));
-                buttonWrapperList.add(new ImageButtonWrapper(ib, id));
-                return buttonWrapperList.get(buttonWrapperList.size() - 1);
+                bitmapHashMap.put(id, background);
+                return ib;
             }
         };
 
@@ -100,30 +110,10 @@ public class GameButtonFactory {
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
+            return BitmapFactory.decodeStream(input);
         } catch (IOException e) {
             // Log exception
             return null;
-        }
-    }
-
-    public static class ImageButtonWrapper {
-
-        ImageButton button;
-        int id;
-
-        public ImageButtonWrapper(ImageButton button, int id) {
-            this.button = button;
-            this.id = id;
-        }
-
-        public ImageButton getButton() {
-            return button;
-        }
-
-        public int getId() {
-            return id;
         }
     }
 }
