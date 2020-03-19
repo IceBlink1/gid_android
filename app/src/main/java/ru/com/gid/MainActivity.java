@@ -1,6 +1,7 @@
 package ru.com.gid;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,23 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+import ru.com.gid.API.CommentModel;
+import ru.com.gid.API.LoginModel;
+import ru.com.gid.API.TokenResponse;
+
+import static ru.com.gid.App.getUserApi;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +43,5 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
     }
 }

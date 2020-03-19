@@ -40,8 +40,8 @@ public class ProfileWishlist extends Fragment {
         gridLayout = getActivity().findViewById(R.id.wishlist_gridlayout);
         gridLayout.setColumnCount(2);
         try {
-            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get().getButton());
-            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get().getButton());
+            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get());
+            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get());
 
         } catch (ExecutionException e) {
             e.printStackTrace();

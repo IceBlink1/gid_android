@@ -42,8 +42,8 @@ public class ProfileUnreleased extends Fragment {
         gridLayout = getActivity().findViewById(R.id.unreleased_gridlayout);
         gridLayout.setColumnCount(2);
         try {
-            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get().getButton());
-            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get().getButton());
+            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get());
+            gridLayout.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get());
 
         } catch (ExecutionException e) {
             e.printStackTrace();
