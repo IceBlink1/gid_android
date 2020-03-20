@@ -6,11 +6,23 @@
         <item name="colorPrimaryDark">#000000</item>
         <item name="android:colorSecondary">#FFFFFF</item>
         <item name="colorAccent">#FFFFFF</item>
+        <item name="android:navigationBarColor">#000000</item>
         <item name="android:windowBackground">#121212</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">14px</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+    <style name="BlueButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/rounded_blue_button</item>
+        <item name="colorButtonNormal">#0c1e4c</item>
+        <item name="colorControlHighlight">#273b6e</item>
+        <item name="strokeColor">#FFFFFF</item>
+        <item name="strokeWidth">4sp</item>
     </style>
 </resources>
