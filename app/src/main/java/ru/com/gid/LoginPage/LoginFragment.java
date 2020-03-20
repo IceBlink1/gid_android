@@ -6,10 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -42,5 +46,15 @@ public class LoginFragment extends Fragment {
 
         for (int i = 0; i < elements.size(); i++)
             elements.get(i).setHint(strings[i]);
+
+        // TODO: Переход на главную страницу, проверку ввода
+
+//        view.findViewById(R.id.continueButton).setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.replace(R.id.login_page_layout, new AdvertFragment());
+//                ft.commit();
+//            }
+//        });
     }
 }

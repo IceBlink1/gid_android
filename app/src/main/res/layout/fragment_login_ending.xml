@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage.CreateProfileFragment">
+    tools:context=".LoginPage.LoginEndingFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/profilePicture"
+            android:id="@+id/GIDpicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -32,14 +32,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/titleText"
-            android:layout_width="match_parent"
+            android:id="@+id/readyText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:textSize="30sp"
             android:text="@string/defaultText" />
 
         <TextView
-            android:id="@+id/adText"
+            android:id="@+id/endingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -54,21 +55,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <TextView
-            android:id="@+id/loginTextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/defaultText" />
-
         <Button
-            android:id="@+id/createProfileButton"
+            android:id="@+id/endingContinueButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/BlueButton"
-            android:text="@string/defaultText" />
+            android:text="@string/ContinueButton" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

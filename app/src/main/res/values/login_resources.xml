@@ -12,6 +12,9 @@
     <string name="ContinueButton">
         Continue
     </string>
+    <string name="SkipButton">
+        Skip
+    </string>
 
     <string-array name="welcome_page">
         <item>Welcome to GID App</item>
@@ -34,8 +37,15 @@
     <string-array name="signup_page">
         <item>Create account</item>
         <item>What\'s your email?</item>
+        <item>You\'ll need to confirm this email later.</item>
         <item>Pick a password</item>
         <item>Use from 8 to 30 characters with at least 1 number.</item>
+    </string-array>
+
+    <string-array name="advert_page">
+        <item>Place all your games on one shelf</item>
+        <item>Jumpstart your library and import your games. Just connect your profile.
+            You can skip this step and add games manually.</item>
     </string-array>
 
     <string-array name="platform_page">

@@ -46,14 +46,16 @@ public class CreateProfileFragment extends Fragment {
         view.findViewById(R.id.loginTextButton).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.login_page_layout, new LoginFragment());
+                ft.replace(R.id.login_page_layout, new LoginFragment()).addToBackStack(null);
                 ft.commit();
             }
         });
 
         view.findViewById(R.id.createProfileButton).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: new fragment
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.login_page_layout, new ProfileCreationPageFragment()).addToBackStack(null);
+                ft.commit();
             }
         });
     }

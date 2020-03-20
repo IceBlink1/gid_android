@@ -17,4 +17,12 @@
         <item name="windowActionBar">false</item>
         <item name="android:layout_marginTop">15dp</item>
     </style>
+
+    <style name="BlueButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/rounded_blue_button</item>
+        <item name="colorButtonNormal">#0c1e4c</item>
+        <item name="colorControlHighlight">#273b6e</item>
+        <item name="strokeColor">#FFFFFF</item>
+        <item name="strokeWidth">4sp</item>
+    </style>
 </resources>
