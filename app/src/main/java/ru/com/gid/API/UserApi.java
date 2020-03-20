@@ -27,6 +27,9 @@ public interface UserApi {
     @GET("/api/users")
     Call<List<UserModel>> getUsers(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("offset") Integer offset);
 
+    @GET("/api/users/wished/?unreleased")
+    Call<List<GameModel>> getWishedUnreleasedGames(@Header("Authorization") String token);
+
     @GET("/api/users/wished")
     Call<List<GameModel>> getUserWishedGames(@Header("Authorization") String token);
 
@@ -42,28 +45,25 @@ public interface UserApi {
     @POST("/api/users/platforms/")
     Call<ResponseBody> setPlatforms(@Header("Authorization") String token, @Body List<String> platforms);
 
-    @POST("/api/users/wished/add")
+    @POST("/api/users/wished/add/")
     Call<ResponseBody> addGame(@Header("Authorization") String token, @Body Integer gameId);
 
-    @GET("/api/users/wished/")
-    Call<List<GameModel>> getWishedGames(@Header("Authorization") String token);
-
-    @POST("/api/users/pass")
+    @POST("/api/users/pass/")
     Call<ResponseBody> changePassword(@Header("Authorization") String token, @Body ChangePasswordModel changePasswordModel);
 
-    @POST("/api/games/all/comments/delete")
+    @POST("/api/games/all/comments/delete/")
     Call<ResponseBody> deleteComment(@Header("Authorization") String token, @Body int commentId);
 
     @GET("/api/games/discounts")
     Call<List<DiscountModel>> getDiscounts(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("Offset") Integer offset);
 
-    @POST("/api/users/pass/recover")
+    @POST("/api/users/pass/recover/")
     Call<ResponseBody> recoverPassword(@Body ChangePasswordModel email);
 
-    @POST("/api/users/pass/verify_code")
+    @POST("/api/users/pass/verify_code/")
     Call<ResponseBody> recoverVerifyCode(@Body ChangePasswordModel model);
 
-    @POST("/api/users/pass/reset")
+    @POST("/api/users/pass/reset/")
     Call<ResponseBody> resetPassword(@Body ChangePasswordModel model);
 
 }

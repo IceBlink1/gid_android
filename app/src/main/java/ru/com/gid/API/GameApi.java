@@ -28,6 +28,8 @@ public interface GameApi {
                                              @Query("limit") Integer limit,
                                              @Query("offset") Integer offset);
 
+
+
     @GET("api/games/all/{id}/comments")
     Call<List<CommentModel>> getGameComments(@Header("Authorization") String token, @Path("id") int id);
 
@@ -40,6 +42,6 @@ public interface GameApi {
     @GET("api/articles/?personal")
     Call<List<ArticleModel>> getUserArticles(@Header("Autorization") String token);
 
-    @POST("api/games/all/rate")
+    @POST("api/games/all/rate/")
     Call<ResponseBody> rateGame(@Body RateGameModel model);
 }
