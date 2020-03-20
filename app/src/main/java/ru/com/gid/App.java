@@ -5,6 +5,7 @@ import android.app.Application;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.com.gid.API.GameApi;
+import ru.com.gid.API.SteamApi;
 import ru.com.gid.API.UserApi;
 
 public class App extends Application {
@@ -12,6 +13,7 @@ public class App extends Application {
     private static String token;
     private static GameApi gameApi;
     private static UserApi userApi;
+    private static SteamApi steamApi;
     private Retrofit retrofit;
 
     @Override
@@ -24,7 +26,12 @@ public class App extends Application {
                 .build();
         gameApi = retrofit.create(GameApi.class); //Создаем объект, при помощи которого будем выполнять запросы
         userApi = retrofit.create(UserApi.class);
-        token = "Token 15f0c18bdd0ae4972edcf46edd2ef495db9b68e3";
+        steamApi = retrofit.create(SteamApi.class);
+        token = "Token 1783f0bf36fea2ee45fb134bfed644d309c052c2";
+    }
+
+    public static SteamApi getSteamApi() {
+        return steamApi;
     }
 
     public static GameApi getGameApi() {
