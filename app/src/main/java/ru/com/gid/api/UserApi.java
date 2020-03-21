@@ -38,7 +38,7 @@ public interface UserApi {
     Call<ResponseBody> setPlatforms(@Header("Authorization") String token, @Body List<String> platforms);
 
     @POST("/api/users/wished/add/")
-    Call<ResponseBody> addGame(@Header("Authorization") String token, @Body Integer gameId);
+    Call<ResponseBody> addGame(@Header("Authorization") String token, @Body AddGamePostModel gameId);
 
     @POST("/api/users/pass/")
     Call<ResponseBody> changePassword(@Header("Authorization") String token, @Body ChangePasswordModel changePasswordModel);
