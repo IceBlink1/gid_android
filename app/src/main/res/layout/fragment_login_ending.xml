@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15sp"
             app:srcCompat="@android:drawable/sym_def_app_icon" />
     </LinearLayout>
 
@@ -36,13 +38,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="30sp"
-            android:text="@string/defaultText" />
+            android:text="@string/defaultText"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/endingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
             android:gravity="center"
             android:text="@string/defaultText" />
     </LinearLayout>
@@ -59,7 +62,7 @@
             android:id="@+id/endingContinueButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/BlueButton"
-            android:text="@string/ContinueButton" />
+            android:text="@string/ContinueButton"
+            android:theme="@style/BlueButton" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
