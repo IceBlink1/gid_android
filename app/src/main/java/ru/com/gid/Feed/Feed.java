@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import ru.com.gid.GameButtonFactory;
-import ru.com.gid.GameModel;
+import ru.com.gid.API.GameModel;
 import ru.com.gid.R;
 
 public class Feed extends Fragment {
@@ -52,18 +52,18 @@ public class Feed extends Fragment {
 
         gamesForUser = view.findViewById(R.id.gamesForUserGridView);
 
-        try {
-            for (int i = 0; i < 4; i++)
-                gamesForUser.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get().getButton());
-        }
-        catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//           // for (int i = 0; i < 4; i++)
+//                //gamesForUser.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get().getButton());
+//        }
+//        catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (
+//                IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

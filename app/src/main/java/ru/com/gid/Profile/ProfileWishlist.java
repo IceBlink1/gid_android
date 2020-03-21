@@ -20,9 +20,11 @@ import com.xwray.groupie.GroupAdapter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import ru.com.gid.API.GameModel;
 import ru.com.gid.GameButtonFactory;
 import ru.com.gid.GameButtonRecyclerItem;
 import ru.com.gid.R;
@@ -49,10 +51,9 @@ public class ProfileWishlist extends Fragment {
 
         GroupAdapter adapter = new GroupAdapter();
         try {
-            List<Future<Bitmap>> gameBitmaps = GameButtonFactory.getWishedGames(getActivity(), 500, 500);
-            for (Future<Bitmap> futureGameBitmap :
-                    gameBitmaps) {
-                adapter.add(new GameButtonRecyclerItem(futureGameBitmap.get()));
+            Map<GameModel, Future<Bitmap>> gameBitmaps = GameButtonFactory.getWishedGames(getActivity(), 500, 500);
+            for (Map.Entry<GameModel, Future<Bitmap>> entry : gameBitmaps.entrySet()) {
+                adapter.add(new GameButtonRecyclerItem(entry.getValue().get(), entry.getKey()));
             }
         } catch (ExecutionException e) {
             e.printStackTrace();

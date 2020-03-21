@@ -27,7 +27,7 @@ public class App extends Application {
         gameApi = retrofit.create(GameApi.class); //Создаем объект, при помощи которого будем выполнять запросы
         userApi = retrofit.create(UserApi.class);
         steamApi = retrofit.create(SteamApi.class);
-        token = "Token 1783f0bf36fea2ee45fb134bfed644d309c052c2";
+        token = "Token 15f0c18bdd0ae4972edcf46edd2ef495db9b68e3";
     }
 
     public static SteamApi getSteamApi() {

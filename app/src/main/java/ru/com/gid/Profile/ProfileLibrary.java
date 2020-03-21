@@ -19,6 +19,7 @@ import com.xwray.groupie.GroupAdapter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -52,10 +53,9 @@ public class ProfileLibrary extends Fragment {
         if(savedInstanceState == null)
             adapter = new GroupAdapter();
         try {
-            List<Future<Bitmap>> gameBitmaps = GameButtonFactory.getLibraryGames(getActivity(), 500, 500);
-            for (Future<Bitmap> futureGameBitmap :
-                    gameBitmaps) {
-                adapter.add(new GameButtonRecyclerItem(futureGameBitmap.get()));
+            Map<GameModel, Future<Bitmap>> gameBitmaps = GameButtonFactory.getLibraryGames(getActivity(), 500, 500);
+            for (Map.Entry<GameModel, Future<Bitmap>> entry : gameBitmaps.entrySet()) {
+                adapter.add(new GameButtonRecyclerItem(entry.getValue().get(), entry.getKey()));
             }
         } catch (ExecutionException e) {
             e.printStackTrace();

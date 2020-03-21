@@ -3,9 +3,10 @@ package ru.com.gid.API;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GameModel {
+public class GameModel implements Serializable {
 
     @SerializedName("steam_id")
     @Expose
@@ -25,6 +26,9 @@ public class GameModel {
     @SerializedName("price_set")
     @Expose
     private List<Double> priceSet = null;
+    @SerializedName("marks_numbers")
+    @Expose
+    private List<Integer> marksNumbers = null;
     @SerializedName("about")
     @Expose
     private String about;
@@ -248,5 +252,13 @@ public class GameModel {
 
     public void setSteamId(Integer steamId) {
         this.steamId = steamId;
+    }
+
+    public void setMarksNumbers(List<Integer> marksNumbers) {
+        this.marksNumbers = marksNumbers;
+    }
+
+    public List<Integer> getMarksNumbers() {
+        return marksNumbers;
     }
 }

@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -33,7 +34,7 @@ public class GameButtonFactory {
     private final static double ICON_HEIGHT_COEF = 0.0552;
     private final static double ICON_WIDTH_COEF = 0.0736;
 
-    public static List<Future<Bitmap>> getUnreleasedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
+    public static Map<GameModel, Future<Bitmap>> getUnreleasedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
         List<GameModel> games =
                 threadPoolExecutor.submit(() -> {
                     try {
@@ -46,7 +47,7 @@ public class GameButtonFactory {
         return fillBitmapList(games, context, width, height);
     }
 
-    public static List<Future<Bitmap>> getWishedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
+    public static Map<GameModel, Future<Bitmap>> getWishedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
         List<GameModel> games =
                 threadPoolExecutor.submit(() -> {
                     try {
@@ -59,7 +60,7 @@ public class GameButtonFactory {
         return fillBitmapList(games, context, width, height);
     }
 
-    public static List<Future<Bitmap>> getLibraryGames(Context context, int width, int height) throws Exception {
+    public static Map<GameModel, Future<Bitmap>> getLibraryGames(Context context, int width, int height) throws Exception {
         List<GameModel> games =
                 threadPoolExecutor.submit(() -> {
                     try {
@@ -73,11 +74,11 @@ public class GameButtonFactory {
         return fillBitmapList(games, context, width, height);
     }
 
-    private static List<Future<Bitmap>> fillBitmapList(List<GameModel> games, Context context, int width, int height) {
-        List<Future<Bitmap>> bitmaps = new ArrayList<>();
+    private static Map<GameModel, Future<Bitmap>> fillBitmapList(List<GameModel> games, Context context, int width, int height) {
+        Map<GameModel, Future<Bitmap>> bitmaps = new HashMap<>();
         for (GameModel game :
                 games) {
-            bitmaps.add(threadPoolExecutor.submit(getGameButtonAsync(game, context, width, height)));
+            bitmaps.put(game, threadPoolExecutor.submit(getGameButtonAsync(game, context, width, height)));
         }
 
         return bitmaps;
@@ -145,7 +146,7 @@ public class GameButtonFactory {
 
     }
 
-    private static Bitmap getBitmapFromURL(String src) {
+    public static Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

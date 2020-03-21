@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.com.gid.GameModel;
+import ru.com.gid.API.GameModel;
 import ru.com.gid.R;
 
 public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesViewHolder> {
