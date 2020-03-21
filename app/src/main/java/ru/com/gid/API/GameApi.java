@@ -7,7 +7,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -29,12 +28,11 @@ public interface GameApi {
                                              @Query("offset") Integer offset);
 
 
-
     @GET("api/games/all/{id}/comments")
     Call<List<CommentModel>> getGameComments(@Header("Authorization") String token, @Path("id") int id);
 
     @GET("api/games/discounts")
-    Call<List<DiscountModel>> getDiscounts(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("offset") Integer offset);
+    Call<DiscountModelOffsetLimit> getDiscounts(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("offset") Integer offset);
 
     @GET("api/articles")
     Call<List<ArticleModel>> getArticles(@Header("Authorization") String token, @Query("steam_id") Integer steamId);

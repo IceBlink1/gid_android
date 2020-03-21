@@ -1,6 +1,8 @@
 package ru.com.gid.Feed;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +12,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ru.com.gid.GameModel;
+import ru.com.gid.API.DiscountModel;
+import ru.com.gid.API.GameModel;
 import ru.com.gid.R;
 
 public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesViewHolder> {
-    private ArrayList<GameModel> games;
+    private List<GameModel> games;
+    private List<DiscountModel> discounts;
     private Context context;
+    private List<Bitmap> images;
 
-    public SalesRVAdapter(ArrayList<GameModel> games, Context context) {
+    public SalesRVAdapter(List<GameModel> games, List<DiscountModel> discounts, List<Bitmap> images, Context context) {
         this.games = games;
         this.context = context;
+        this.images = images;
+        this.discounts = discounts;
+    }
+
+    public SalesRVAdapter(FeedData feed, Context context) {
+        this.games = feed.getGamesOnSale();
+        this.context = context;
+        this.images = feed.getImages();
+        this.discounts = feed.getGamesOnSaleD();
     }
 
     @NonNull
@@ -36,9 +49,12 @@ public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesVie
 
     @Override
     public void onBindViewHolder(@NonNull SalesRVAdapter.SalesViewHolder holder, int position) {
-        final GameModel game = games.get(position);
 
-        holder.setGame(game);
+        final GameModel game = games.get(position);
+        final Bitmap image = images.get(position);
+        final DiscountModel discount = discounts.get(position);
+        holder.setGame(game, discount, image);
+
     }
 
     @Override
@@ -67,19 +83,32 @@ public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesVie
             platfWindows = itemView.findViewById(R.id.platformsWindows);
 
             platfSale = itemView.findViewById(R.id.platfSale);
+
+            oldPrice.setPaintFlags(oldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
         }
 
-        public void setGame(GameModel game) {
+        public void setGame(GameModel game, DiscountModel discount, Bitmap image) {
+            if (game == null) {
+                RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+                itemView.setVisibility(View.GONE);
+                param.height = 0;
+                param.width = 0;
+                return;
+            }
             gameName.setText(game.getName());
-            // TODO take info about sale prices and platform and add it to row
-            // TODO take image and add it to row
+
+            oldPrice.setText(String.valueOf(discount.getOldPrice()));
+            newPrice.setText(String.valueOf(discount.getNewPrice()));
+
+            gameImg.setImageBitmap(image);
             setPlatforms(game);
         }
 
         public void setPlatforms(GameModel game) {
             List<String> platforms = game.getPlatforms();
 
-            for (String platform: platforms) {
+            for (String platform : platforms) {
                 if (platform.equals("Linux"))
                     platfLinux.setVisibility(View.VISIBLE);
                 if (platform.equals("Mac"))
@@ -89,4 +118,6 @@ public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesVie
             }
         }
     }
+
+
 }

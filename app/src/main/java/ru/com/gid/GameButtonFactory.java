@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.widget.ImageButton;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,17 +21,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import ru.com.gid.API.DiscountModel;
 import ru.com.gid.API.GameModel;
+import ru.com.gid.Feed.FeedData;
 
 public class GameButtonFactory {
-
-    private static HashMap<Integer, Bitmap> bitmapHashMap = new HashMap<Integer, Bitmap>();
-    private static ExecutorService threadPoolExecutor = Executors.newCachedThreadPool();
 
     private final static double MARGIN_ICON_LEFT = 0.0588;
     private final static double MARGIN_ICON_BOTTOM = 0.0932;
     private final static double ICON_HEIGHT_COEF = 0.0552;
     private final static double ICON_WIDTH_COEF = 0.0736;
+    private static HashMap<Integer, Bitmap> bitmapHashMap = new HashMap<>();
+    private static ExecutorService threadPoolExecutor = Executors.newCachedThreadPool();
 
     public static List<Future<Bitmap>> getUnreleasedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
         List<GameModel> games =
@@ -45,6 +46,44 @@ public class GameButtonFactory {
                 }).get();
         return fillBitmapList(games, context, width, height);
     }
+
+    public static FeedData getGamesOnSale() throws ExecutionException, InterruptedException {
+        return threadPoolExecutor.submit(() -> {
+            try {
+                List<GameModel> games = new ArrayList<>();
+                List<Bitmap> images = new ArrayList<>();
+                List<DiscountModel> discounts = App.getGameApi().getDiscounts(App.getToken(), 100, 1).execute().body().getResults();
+                for (DiscountModel discount : discounts) {
+                    if (discount.getPrice() != null) {
+                        GameModel gm = discount.getPrice().getGame();
+                        games.add(gm);
+                    } else games.add(null);
+                }
+                for (GameModel game : games) {
+                    if (game != null) {
+                        images.add(threadPoolExecutor.submit(getGameIcon(game)).get());
+                    } else images.add(null);
+                }
+                return new FeedData(games, discounts, images);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }).get();
+    }
+
+    private static Callable<Bitmap> getGameIcon(GameModel model) {
+        return () -> {
+            Bitmap img = Picasso
+                    .get()
+                    .load(model.getHeaderImage())
+                    .resize(77, 103)
+                    .get();
+            return img;
+        };
+    }
+
 
     public static List<Future<Bitmap>> getWishedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
         List<GameModel> games =
@@ -81,13 +120,6 @@ public class GameButtonFactory {
         }
 
         return bitmaps;
-    }
-
-    public static Future<Bitmap> getGameButtonById(Context context, int id, int width, int height) throws ExecutionException, InterruptedException {
-        return threadPoolExecutor.submit(getGameButtonAsync(threadPoolExecutor.submit(() -> App.getGameApi().
-                getGameById(App.getToken(), id).
-                execute().
-                body()).get(), context, width, height));
     }
 
     private static Callable<Bitmap> getGameButtonAsync(final GameModel model, final Context context, final int width, final int height) {
@@ -145,7 +177,7 @@ public class GameButtonFactory {
 
     }
 
-    private static Bitmap getBitmapFromURL(String src) {
+    public static Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

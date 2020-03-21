@@ -1,26 +1,29 @@
 package ru.com.gid.Feed;
 
-import androidx.lifecycle.ViewModelProviders;
-
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridView;
+import com.xwray.groupie.GroupAdapter;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import ru.com.gid.GameButtonFactory;
-import ru.com.gid.GameModel;
+import ru.com.gid.GameButtonRecyclerItem;
 import ru.com.gid.R;
 
 public class Feed extends Fragment {
@@ -28,9 +31,9 @@ public class Feed extends Fragment {
     private FeedViewModel mViewModel;
     private RecyclerView recyclerViewSales;
     private SalesRVAdapter recyclerViewAdapter;
-    ArrayList<GameModel> gamesOnSale;
 
-    private GridView gamesForUser;
+
+    private RecyclerView gamesForUser;
 
     public static Feed newInstance() {
         return new Feed();
@@ -45,25 +48,49 @@ public class Feed extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerViewSales = view.findViewById(R.id.reciclerViewSales);
-        recyclerViewSales.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerViewAdapter = new SalesRVAdapter(gamesOnSale, this.getContext());
-        recyclerViewSales.setAdapter(recyclerViewAdapter);
 
-        gamesForUser = view.findViewById(R.id.gamesForUserGridView);
+
+        gamesForUser = view.findViewById(R.id.gamesForUserRV);
+        gamesForUser.setNestedScrollingEnabled(false);
+        GroupAdapter ga = new GroupAdapter();
+        gamesForUser.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
 
         try {
+            List<Future<Bitmap>> gameBitmaps = GameButtonFactory.getWishedGames(getActivity(), 500, 500);
             for (int i = 0; i < 4; i++)
-                gamesForUser.addView(GameButtonFactory.getGameButton(getActivity(), 800, 500, 500).get().getButton());
-        }
-        catch (ExecutionException e) {
+                ga.add(new GameButtonRecyclerItem(gameBitmaps.get(i).get()));
+        } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (
-                IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+        gamesForUser.setAdapter(ga);
+
+        FeedData feed = null;
+        try {
+            feed = GameButtonFactory.getGamesOnSale();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        recyclerViewSales = view.findViewById(R.id.reciclerViewSales);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewSales.getContext(),
+                DividerItemDecoration.VERTICAL);
+        Drawable dr = getResources().getDrawable(R.drawable.divider);
+        dividerItemDecoration.setDrawable(dr);
+
+        recyclerViewSales.addItemDecoration(dividerItemDecoration);
+        recyclerViewSales.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        recyclerViewAdapter = new SalesRVAdapter(feed, this.getContext());
+        recyclerViewSales.setAdapter(recyclerViewAdapter);
+        recyclerViewSales.setNestedScrollingEnabled(false);
     }
 
     @Override

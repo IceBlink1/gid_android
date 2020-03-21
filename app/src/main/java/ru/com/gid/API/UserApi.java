@@ -1,20 +1,12 @@
 package ru.com.gid.API;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -55,7 +47,7 @@ public interface UserApi {
     Call<ResponseBody> deleteComment(@Header("Authorization") String token, @Body int commentId);
 
     @GET("/api/games/discounts")
-    Call<List<DiscountModel>> getDiscounts(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("Offset") Integer offset);
+    Call<DiscountModelOffsetLimit> getDiscounts(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("Offset") Integer offset);
 
     @POST("/api/users/pass/recover/")
     Call<ResponseBody> recoverPassword(@Body ChangePasswordModel email);
