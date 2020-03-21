@@ -7,18 +7,18 @@
         android:enabled="true"
         app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/action_discounts"
-        android:title="@string/discounts"
-        android:enabled="true"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:id="@+id/action_discounts"-->
+<!--        android:title="@string/discounts"-->
+<!--        android:enabled="true"-->
+<!--        app:showAsAction="ifRoom"/>-->
 
-    <item
-        android:id="@+id/action_search"
+<!--    <item-->
+<!--        android:id="@+id/action_search"-->
 
-        android:title="@string/search"
-        android:enabled="true"
-        app:showAsAction="ifRoom"/>
+<!--        android:title="@string/search"-->
+<!--        android:enabled="true"-->
+<!--        app:showAsAction="ifRoom"/>-->
 
     <item
         android:id="@+id/action_profile"

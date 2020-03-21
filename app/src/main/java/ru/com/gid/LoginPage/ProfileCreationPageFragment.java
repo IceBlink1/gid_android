@@ -17,12 +17,21 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ru.com.gid.API.LoginModel;
+import ru.com.gid.API.TokenResponse;
+import ru.com.gid.App;
 import ru.com.gid.R;
 
 public class ProfileCreationPageFragment extends Fragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,8 +46,12 @@ public class ProfileCreationPageFragment extends Fragment {
                 (TextView) (view.findViewById(R.id.titleTextView)),
                 (EditText) (view.findViewById(R.id.emailEditText)),
                 (TextView) (view.findViewById(R.id.emailHintTextView)),
+                (EditText) (view.findViewById(R.id.usernameEditText)),
+                (TextView) (view.findViewById(R.id.usernameHintTextView)),
                 (EditText) (view.findViewById(R.id.passwordEditText)),
-                (TextView) (view.findViewById(R.id.passwordHintTextView))
+                (TextView) (view.findViewById(R.id.passwordHintTextView)),
+                (EditText) (view.findViewById(R.id.commonNameEditText)),
+                (TextView) (view.findViewById(R.id.commonNameHintTextView))
         ));
 
         String[] strings = resources.getStringArray(R.array.signup_page);
@@ -52,9 +65,44 @@ public class ProfileCreationPageFragment extends Fragment {
 
         view.findViewById(R.id.doneButton).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.login_page_layout, new AdvertFragment()).addToBackStack(null);
-                ft.commit();
+                LoginModel model = new LoginModel(elements.get(1).getText().toString(),
+                        elements.get(3).getText().toString(), elements.get(7).getText().toString(),
+                        elements.get(5).getText().toString());
+                App.getUserApi().register(model).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            elements.get(0).setText(response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        App.getUserApi().login(model).enqueue(new Callback<TokenResponse>() {
+                            @Override
+                            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                                if (response.body() != null) {
+                                    App.setToken(response.body().getToken());
+                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                    ft.replace(R.id.login_page_layout, new AdvertFragment()).addToBackStack(null);
+                                    ft.commit();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
             }
         });
     }

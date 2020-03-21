@@ -46,4 +46,8 @@ public class App extends Application {
     public static String getToken() {
         return token;
     }
+
+    public static void setToken(String token) {
+        App.token = "Token " + token;
+    }
 }

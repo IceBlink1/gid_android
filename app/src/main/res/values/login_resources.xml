@@ -30,7 +30,7 @@
 
     <string-array name="login_page">
         <item>Log in</item>
-        <item>Enter your email</item>
+        <item>Enter your username</item>
         <item>Enter your password</item>
     </string-array>
 
@@ -38,8 +38,12 @@
         <item>Create account</item>
         <item>What\'s your email?</item>
         <item>You\'ll need to confirm this email later.</item>
+        <item>Choose a login</item>
+        <item>You will use it to enter the app</item>
         <item>Pick a password</item>
         <item>Use from 8 to 30 characters with at least 1 number.</item>
+        <item>Choose common name</item>
+        <item>It will be displayed to other GID users</item>
     </string-array>
 
     <string-array name="advert_page">

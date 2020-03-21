@@ -6,13 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginModel {
 
-    @Expose
-    @SerializedName("common_name")
-    String commonName;
-
-    @Expose
-    @SerializedName("password")
-    String password;
 
     @Expose
     @SerializedName("email")
@@ -21,6 +14,15 @@ public class LoginModel {
     @Expose
     @SerializedName("username")
     String username;
+
+    @Expose
+    @SerializedName("password")
+    String password;
+
+    @Expose
+    @SerializedName("common_name")
+    String commonName;
+
 
     public String getEmail() {
         return email;
