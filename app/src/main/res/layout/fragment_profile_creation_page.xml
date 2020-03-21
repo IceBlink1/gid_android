@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="15sp"
             android:text="@string/defaultText"
             android:textSize="30sp" />
 
@@ -47,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="15sp"
             android:ems="10"
             android:hint="@string/defaultText"
             android:importantForAutofill="no"
@@ -65,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="15sp"
             android:ems="10"
             android:hint="@string/defaultText"
             android:importantForAutofill="no"
@@ -84,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="15sp"
             android:ems="10"
             android:hint="@string/defaultText"
             android:importantForAutofill="no"
@@ -103,6 +108,7 @@
         android:id="@+id/doneButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
         android:clickable="false"
         android:text="@string/DoneButton"
         android:theme="@style/BlueButton"
