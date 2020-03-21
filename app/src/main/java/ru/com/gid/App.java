@@ -4,9 +4,9 @@ import android.app.Application;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ru.com.gid.API.GameApi;
-import ru.com.gid.API.SteamApi;
-import ru.com.gid.API.UserApi;
+import ru.com.gid.api.GameApi;
+import ru.com.gid.api.SteamApi;
+import ru.com.gid.api.UserApi;
 
 public class App extends Application {
 
@@ -27,7 +27,7 @@ public class App extends Application {
         gameApi = retrofit.create(GameApi.class); //Создаем объект, при помощи которого будем выполнять запросы
         userApi = retrofit.create(UserApi.class);
         steamApi = retrofit.create(SteamApi.class);
-        token = "Token 1783f0bf36fea2ee45fb134bfed644d309c052c2";
+        token = "Token 15f0c18bdd0ae4972edcf46edd2ef495db9b68e3";
     }
 
     public static SteamApi getSteamApi() {
@@ -45,5 +45,9 @@ public class App extends Application {
 
     public static String getToken() {
         return token;
+    }
+
+    public static void setToken(String token) {
+        App.token = "Token " + token;
     }
 }

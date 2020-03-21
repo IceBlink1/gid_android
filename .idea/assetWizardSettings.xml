@@ -48,9 +48,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Загрузки/iconfinder_steam-square_1608393.png" />
-                                      <entry key="outputName" value="steam_logo" />
-                                      <entry key="theme" value="HOLO_DARK" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Загрузки/img_519209.png" />
+                                      <entry key="outputName" value="play_video_icon" />
+                                      <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
