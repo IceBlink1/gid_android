@@ -22,9 +22,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import ru.com.gid.API.DiscountModel;
-import ru.com.gid.API.GameModel;
-import ru.com.gid.Feed.FeedData;
+import ru.com.gid.api.DiscountModel;
+import ru.com.gid.api.GameModel;
+import ru.com.gid.feed.FeedData;
 
 public class GameButtonFactory {
 

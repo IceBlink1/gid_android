@@ -4,9 +4,9 @@ import android.app.Application;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ru.com.gid.API.GameApi;
-import ru.com.gid.API.SteamApi;
-import ru.com.gid.API.UserApi;
+import ru.com.gid.api.GameApi;
+import ru.com.gid.api.SteamApi;
+import ru.com.gid.api.UserApi;
 
 public class App extends Application {
 

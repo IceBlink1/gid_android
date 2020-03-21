@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
 
-import ru.com.gid.API.GameModel;
-import ru.com.gid.GameActivity.GameActivity;
+import ru.com.gid.api.GameModel;
+import ru.com.gid.game_activity.GameActivity;
 
 public class GameButtonRecyclerItem extends Item {
 

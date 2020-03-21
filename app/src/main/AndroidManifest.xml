@@ -16,11 +16,11 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".GameActivity.GameActivity" />
+        <activity android:name=".game_activity.GameActivity" />
 
         <activity android:name=".MainActivity" />
 
-        <activity android:name=".LoginPage.LoginPageActivity">
+        <activity android:name=".login_page.LoginPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
