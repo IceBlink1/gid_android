@@ -27,7 +27,6 @@ public interface GameApi {
                                              @Query("limit") Integer limit,
                                              @Query("offset") Integer offset);
 
-
     @GET("api/games/all/{id}/comments")
     Call<List<CommentModel>> getGameComments(@Header("Authorization") String token, @Path("id") int id);
 

@@ -19,11 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.xwray.groupie.GroupAdapter;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import ru.com.gid.GameButtonFactory;
 import ru.com.gid.GameButtonRecyclerItem;
+import ru.com.gid.API.GameModel;
 import ru.com.gid.R;
 
 public class Feed extends Fragment {
@@ -57,9 +59,11 @@ public class Feed extends Fragment {
 
 
         try {
-            List<Future<Bitmap>> gameBitmaps = GameButtonFactory.getWishedGames(getActivity(), 500, 500);
-            for (int i = 0; i < 4; i++)
-                ga.add(new GameButtonRecyclerItem(gameBitmaps.get(i).get()));
+            Map<GameModel, Future<Bitmap>> gameBitmaps = GameButtonFactory.getWishedGames(getActivity(), 500, 500);
+            for (Map.Entry<GameModel, Future<Bitmap>> entry:
+                 gameBitmaps.entrySet()) {
+                ga.add(new GameButtonRecyclerItem(entry.getValue().get(), entry.getKey()));
+            }
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

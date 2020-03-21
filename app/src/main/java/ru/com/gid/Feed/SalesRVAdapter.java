@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
 import ru.com.gid.API.DiscountModel;
 import ru.com.gid.API.GameModel;
 import ru.com.gid.R;
