@@ -8,12 +8,17 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import ru.com.gid.feed.Feed;
+import ru.com.gid.profile.Profile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,14 +32,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.template_main);
 
+        FragmentContainerView fragmentContainerView = findViewById(R.id.nav_host_fragment);
         BottomNavigationView navView = findViewById(R.id.bottom_navigation_bar);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_feed, R.id.navigation_profile)
-                .build();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.nav_host_fragment, new Feed()).commit();
+        navView.setOnNavigationItemSelectedListener(item -> {
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+            switch (item.getTitle().toString()) {
+                case "Profile":
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.nav_host_fragment, new Profile()).commit();
+                    break;
+                case "Feed":
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.nav_host_fragment, new Feed()).commit();
+                    break;
+            }
+            return false;
+        });
 
     }
 }

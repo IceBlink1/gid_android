@@ -3,6 +3,8 @@ package ru.com.gid.game_activity;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +20,11 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ru.com.gid.api.AddGamePostModel;
 import ru.com.gid.api.CommentModel;
 import ru.com.gid.api.GameModel;
 import ru.com.gid.App;
@@ -94,6 +98,28 @@ public class GameActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+        Button button = findViewById(R.id.add_wishlist_button);
+        button.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        App.getUserApi().addGame(App.getToken(),
+                                new AddGamePostModel(model.getId())).
+                                enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        t.printStackTrace();
+                                    }
+                                });
+                    }
+                }
+        );
     }
 
 
