@@ -1,5 +1,6 @@
 package ru.com.gid.login_page;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ru.com.gid.MainActivity;
 import ru.com.gid.api.LoginModel;
 import ru.com.gid.api.TokenResponse;
 import ru.com.gid.App;
@@ -74,9 +76,8 @@ public class ProfileCreationPageFragment extends Fragment {
                             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                                 if (response.body() != null) {
                                     App.setToken(response.body().getToken());
-                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                    ft.replace(R.id.login_page_layout, new AdvertFragment()).addToBackStack(null);
-                                    ft.commit();
+                                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                                    v.getContext().startActivity(intent);
                                 }
                             }
 
