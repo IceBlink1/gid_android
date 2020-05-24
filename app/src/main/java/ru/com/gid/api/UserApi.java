@@ -47,7 +47,7 @@ public interface UserApi {
     Call<ResponseBody> deleteComment(@Header("Authorization") String token, @Body int commentId);
 
     @GET("/api/games/discounts")
-    Call<DiscountModelOffsetLimit> getDiscounts(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("Offset") Integer offset);
+    Call<DiscountModelOffsetLimit> getDiscounts(@Header("Authorization") String token, @Query("limit") Integer limit, @Query("offset") Integer offset);
 
     @POST("/api/users/pass/recover/")
     Call<ResponseBody> recoverPassword(@Body ChangePasswordModel email);
