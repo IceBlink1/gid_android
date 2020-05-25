@@ -48,10 +48,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Загрузки/img_519209.png" />
-                                      <entry key="outputName" value="play_video_icon" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Загрузки/iconfinder_32-windows8_104472.png" />
+                                      <entry key="outputName" value="ic_windows" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="000000" />
+                                      <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -10,16 +10,10 @@ import ru.com.gid.api.GameModel;
 public class FeedData {
     private List<GameModel> gamesOnSale;
     private List<DiscountModel> gamesOnSaleD;
-    private List<Bitmap> images;
 
-    public FeedData(List<GameModel> gm, List<DiscountModel> dm, List<Bitmap> img) {
+    public FeedData(List<GameModel> gm, List<DiscountModel> dm) {
         this.gamesOnSale = gm;
         this.gamesOnSaleD = dm;
-        this.images = img;
-    }
-
-    public List<Bitmap> getImages() {
-        return images;
     }
 
     public List<DiscountModel> getGamesOnSaleD() {

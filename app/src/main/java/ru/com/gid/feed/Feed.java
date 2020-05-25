@@ -1,6 +1,5 @@
 package ru.com.gid.feed;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,18 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xwray.groupie.GroupAdapter;
 
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.Objects;
 
 import ru.com.gid.GameButtonFactory;
 import ru.com.gid.GameButtonRecyclerItem;
-import ru.com.gid.api.GameModel;
 import ru.com.gid.R;
+import ru.com.gid.api.GameModel;
+import ru.com.gid.profile.ProfileViewModel;
 
 public class Feed extends Fragment {
 
-    private FeedViewModel mViewModel;
+    private FeedViewModel feedViewModel;
+    private ProfileViewModel profileViewModel;
     private RecyclerView recyclerViewSales;
     private SalesRVAdapter recyclerViewAdapter;
 
@@ -49,58 +48,48 @@ public class Feed extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        recyclerViewSales = view.findViewById(R.id.reciclerViewSales);
 
         gamesForUser = view.findViewById(R.id.gamesForUserRV);
         gamesForUser.setNestedScrollingEnabled(false);
-        GroupAdapter ga = new GroupAdapter();
         gamesForUser.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-
-        try {
-            Map<GameModel, Future<Bitmap>> gameBitmaps = GameButtonFactory.getWishedGames(getActivity(), 500, 500);
-            for (Map.Entry<GameModel, Future<Bitmap>> entry:
-                 gameBitmaps.entrySet()) {
-                ga.add(new GameButtonRecyclerItem(entry.getValue().get(), entry.getKey()));
-            }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        gamesForUser.setAdapter(ga);
-
-        FeedData feed = null;
-        try {
-            feed = GameButtonFactory.getGamesOnSale();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        recyclerViewSales = view.findViewById(R.id.reciclerViewSales);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewSales.getContext(),
-                DividerItemDecoration.VERTICAL);
-        Drawable dr = getResources().getDrawable(R.drawable.divider);
-        dividerItemDecoration.setDrawable(dr);
-
-        recyclerViewSales.addItemDecoration(dividerItemDecoration);
-        recyclerViewSales.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
-        recyclerViewAdapter = new SalesRVAdapter(feed, this.getContext());
-        recyclerViewSales.setAdapter(recyclerViewAdapter);
-        recyclerViewSales.setNestedScrollingEnabled(false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(FeedViewModel.class);
+
+        profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         // TODO: Use the ViewModel
+        GameButtonFactory.getWishedGames(profileViewModel);
+        profileViewModel.getWishedGames().observe(getViewLifecycleOwner(), gameModels -> {
+            if (!gameModels.isEmpty()) {
+                recyclerViewSales = getActivity().findViewById(R.id.wishlist_recyclerview);
+                GroupAdapter ga = new GroupAdapter();
+                for (GameModel game : Objects.requireNonNull(profileViewModel.getWishedGames().getValue())) {
+                    ga.add(new GameButtonRecyclerItem(game));
+                }
+                gamesForUser.setAdapter(ga);
+            }
+        });
+
+        feedViewModel = ViewModelProviders.of(this).get(FeedViewModel.class);
+        // TODO: Use the ViewModel
+        GameButtonFactory.getGamesOnSale(feedViewModel);
+        feedViewModel.feedData.observe(getViewLifecycleOwner(), feedData -> {
+            FeedData feed = feedData;
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewSales.getContext(),
+                    DividerItemDecoration.VERTICAL);
+            Drawable dr = getResources().getDrawable(R.drawable.divider);
+            dividerItemDecoration.setDrawable(dr);
+
+            recyclerViewSales.addItemDecoration(dividerItemDecoration);
+            recyclerViewSales.setLayoutManager(new LinearLayoutManager(Feed.this.getContext()));
+
+            recyclerViewAdapter = new SalesRVAdapter(feed, Feed.this.getContext());
+            recyclerViewSales.setAdapter(recyclerViewAdapter);
+            recyclerViewSales.setNestedScrollingEnabled(false);
+        });
     }
 
 }

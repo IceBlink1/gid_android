@@ -3,6 +3,8 @@ package ru.com.gid.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class DiscountModelOffsetLimit {
@@ -44,7 +46,8 @@ public class DiscountModelOffsetLimit {
         this.previous = previous;
     }
 
-    public List<DiscountModel> getResults() {
+    public @NotNull
+    List<DiscountModel> getResults() {
         return results;
     }
 

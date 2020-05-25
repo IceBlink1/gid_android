@@ -5,8 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,9 +27,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.com.gid.api.DiscountModel;
+import ru.com.gid.api.DiscountModelOffsetLimit;
 import ru.com.gid.api.GameModel;
 import ru.com.gid.feed.FeedData;
+import ru.com.gid.feed.FeedViewModel;
+import ru.com.gid.profile.ProfileViewModel;
 
 public class GameButtonFactory {
 
@@ -35,92 +46,80 @@ public class GameButtonFactory {
     private static HashMap<Integer, Bitmap> bitmapHashMap = new HashMap<>();
     private static ExecutorService threadPoolExecutor = Executors.newCachedThreadPool();
 
-    public static Map<GameModel, Future<Bitmap>> getUnreleasedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
-        List<GameModel> games =
-                threadPoolExecutor.submit(() -> {
-                    try {
-                        return App.getUserApi().getWishedUnreleasedGames(App.getToken()).execute().body();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }).get();
-        return fillBitmapList(games, context, width, height);
-    }
+    public static void getUnreleasedGames(ProfileViewModel vm) {
 
-    public static FeedData getGamesOnSale() throws ExecutionException, InterruptedException {
-        return threadPoolExecutor.submit(() -> {
-            try {
-                List<GameModel> games = new ArrayList<>();
-                List<Bitmap> images = new ArrayList<>();
-                List<DiscountModel> discounts = App.getGameApi().getDiscounts(App.getToken(), 100, 1).execute().body().getResults();
-                for (DiscountModel discount : discounts) {
-                    if (discount.getPrice() != null) {
-                        GameModel gm = discount.getPrice().getGame();
-                        games.add(gm);
-                    } else games.add(null);
+        App.getUserApi().getWishedUnreleasedGames(App.getToken()).enqueue(new Callback<List<GameModel>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<GameModel>> call, @NotNull Response<List<GameModel>> response) {
+                if (response.isSuccessful()) {
+                    vm.postUnreleasedGames(response.body());
                 }
-                for (GameModel game : games) {
-                    if (game != null) {
-                        images.add(threadPoolExecutor.submit(getGameIcon(game)).get());
-                    } else images.add(null);
-                }
-                return new FeedData(games, discounts, images);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
             }
 
-        }).get();
+            @Override
+            public void onFailure(@NotNull Call<List<GameModel>> call, @NotNull Throwable t) {
+
+            }
+        });
     }
 
-    private static Callable<Bitmap> getGameIcon(GameModel model) {
-        return () -> {
-            Bitmap img = Picasso
-                    .get()
-                    .load(model.getHeaderImage())
-                    .resize(77, 103)
-                    .get();
-            return img;
-        };
-    }
-
-
-    public static Map<GameModel, Future<Bitmap>> getWishedGames(Context context, int width, int height) throws ExecutionException, InterruptedException {
-        List<GameModel> games =
-                threadPoolExecutor.submit(() -> {
-                    try {
-                        return App.getUserApi().getUserWishedGames(App.getToken()).execute().body();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
+    public static void getGamesOnSale(FeedViewModel vm) {
+        List<GameModel> games = new ArrayList<>();
+        App.getGameApi().getDiscounts(App.getToken(), 100, 1).enqueue(new Callback<DiscountModelOffsetLimit>() {
+            @Override
+            public void onResponse(@NotNull Call<DiscountModelOffsetLimit> call, @NotNull Response<DiscountModelOffsetLimit> response) {
+                if (response.isSuccessful()) {
+                    List<DiscountModel> discounts = response.body().getResults();
+                    for (DiscountModel discount : discounts) {
+                        if (discount.getPrice() != null) {
+                            GameModel gm = discount.getPrice().getGame();
+                            games.add(gm);
+                        } else games.add(null);
                     }
-                }).get();
-        return fillBitmapList(games, context, width, height);
+
+                    vm.post(new FeedData(games, discounts));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<DiscountModelOffsetLimit> call, @NotNull Throwable t) {
+                Log.d("Discounts", "Discounts failed " + t.getMessage());
+            }
+        });
+
     }
 
-    public static Map<GameModel, Future<Bitmap>> getLibraryGames(Context context, int width, int height) throws Exception {
-        List<GameModel> games =
-                threadPoolExecutor.submit(() -> {
-                    try {
-                        return App.getSteamApi().getOwnedGames(App.getToken()).execute().body();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }).get();
 
-        return fillBitmapList(games, context, width, height);
+    public static void getWishedGames(ProfileViewModel vm) {
+        App.getUserApi().getUserWishedGames(App.getToken()).enqueue(new Callback<List<GameModel>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<GameModel>> call, @NotNull Response<List<GameModel>> response) {
+                if (response.isSuccessful()) {
+                    vm.postWishedGames(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<GameModel>> call, @NotNull Throwable t) {
+
+            }
+        });
     }
 
-    private static Map<GameModel, Future<Bitmap>> fillBitmapList(List<GameModel> games, Context context, int width, int height) {
-        Map<GameModel, Future<Bitmap>> bitmaps = new HashMap<>();
-        for (GameModel game :
-                games) {
-            bitmaps.put(game, threadPoolExecutor.submit(getGameButtonAsync(game, context, width, height)));
-        }
+    public static void getLibraryGames(ProfileViewModel vm) {
+        App.getSteamApi().getOwnedGames(App.getToken()).enqueue(new Callback<List<GameModel>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<GameModel>> call, @NotNull Response<List<GameModel>> response) {
+                if (response.isSuccessful()) {
+                    vm.postLibraryGames(response.body());
+                }
+            }
 
-        return bitmaps;
+            @Override
+            public void onFailure(@NotNull Call<List<GameModel>> call, @NotNull Throwable t) {
+
+            }
+        });
     }
 
     private static Callable<Bitmap> getGameButtonAsync(final GameModel model, final Context context, final int width, final int height) {

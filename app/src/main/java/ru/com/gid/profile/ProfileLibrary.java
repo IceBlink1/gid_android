@@ -1,5 +1,6 @@
 package ru.com.gid.profile;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.Bitmap;
@@ -17,7 +18,9 @@ import android.view.ViewGroup;
 
 import com.xwray.groupie.GroupAdapter;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -28,7 +31,7 @@ import ru.com.gid.R;
 
 public class ProfileLibrary extends Fragment {
 
-    private ProfileLibraryViewModel mViewModel;
+    private ProfileViewModel mViewModel;
     private RecyclerView recyclerView;
     private GroupAdapter adapter;
 
@@ -46,27 +49,22 @@ public class ProfileLibrary extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        recyclerView = getActivity().findViewById(R.id.library_recyclerview);
-
-        if(savedInstanceState == null)
-            adapter = new GroupAdapter();
-        try {
-            Map<GameModel, Future<Bitmap>> gameBitmaps = GameButtonFactory.getLibraryGames(getActivity(), 500, 500);
-            for (Map.Entry<GameModel, Future<Bitmap>> entry : gameBitmaps.entrySet()) {
-                adapter.add(new GameButtonRecyclerItem(entry.getValue().get(), entry.getKey()));
-            }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-        mViewModel = ViewModelProviders.of(this).get(ProfileLibraryViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         // TODO: Use the ViewModel
+        GameButtonFactory.getLibraryGames(mViewModel);
+        mViewModel.libraryGames.observe(getViewLifecycleOwner(), gameModels -> {
+            if (!gameModels.isEmpty()) {
+                recyclerView = getActivity().findViewById(R.id.library_recyclerview);
+
+                GroupAdapter adapter = new GroupAdapter();
+
+                for (GameModel game : Objects.requireNonNull(mViewModel.libraryGames.getValue())) {
+                    adapter.add(new GameButtonRecyclerItem(game));
+                }
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            }
+        });
     }
 
 }
