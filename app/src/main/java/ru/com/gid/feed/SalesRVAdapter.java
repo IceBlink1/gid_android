@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import ru.com.gid.api.DiscountModel;
@@ -24,19 +26,10 @@ public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesVie
     private List<GameModel> games;
     private List<DiscountModel> discounts;
     private Context context;
-    private List<Bitmap> images;
-
-    public SalesRVAdapter(List<GameModel> games, List<DiscountModel> discounts, List<Bitmap> images, Context context) {
-        this.games = games;
-        this.context = context;
-        this.images = images;
-        this.discounts = discounts;
-    }
 
     public SalesRVAdapter(FeedData feed, Context context) {
         this.games = feed.getGamesOnSale();
         this.context = context;
-        this.images = feed.getImages();
         this.discounts = feed.getGamesOnSaleD();
     }
 
@@ -53,9 +46,8 @@ public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesVie
     public void onBindViewHolder(@NonNull SalesRVAdapter.SalesViewHolder holder, int position) {
 
         final GameModel game = games.get(position);
-        final Bitmap image = images.get(position);
         final DiscountModel discount = discounts.get(position);
-        holder.setGame(game, discount, image);
+        holder.setGame(game, discount);
 
     }
 
@@ -90,7 +82,7 @@ public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesVie
 
         }
 
-        public void setGame(GameModel game, DiscountModel discount, Bitmap image) {
+        public void setGame(GameModel game, DiscountModel discount) {
             if (game == null) {
                 RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) itemView.getLayoutParams();
                 itemView.setVisibility(View.GONE);
@@ -103,7 +95,7 @@ public class SalesRVAdapter extends RecyclerView.Adapter<SalesRVAdapter.SalesVie
             oldPrice.setText(String.valueOf(discount.getOldPrice()));
             newPrice.setText(String.valueOf(discount.getNewPrice()));
 
-            gameImg.setImageBitmap(image);
+            Picasso.get().load(game.getHeaderImage()).resize(77, 103).into(gameImg);
             gameImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

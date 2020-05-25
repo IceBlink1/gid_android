@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.xwray.groupie.GroupAdapter;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -28,7 +29,7 @@ import ru.com.gid.R;
 
 public class ProfileUnreleased extends Fragment {
 
-    private ProfileUnreleasedViewModel mViewModel;
+    private ProfileViewModel mViewModel;
     private RecyclerView recyclerView;
 
     public static ProfileUnreleased newInstance() {
@@ -44,25 +45,23 @@ public class ProfileUnreleased extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        recyclerView = getActivity().findViewById(R.id.unreleased_recyclerview);
+        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
+        // TODO: Use the ViewModel
+        GameButtonFactory.getUnreleasedGames(mViewModel);
+        mViewModel.unrealeasedGames.observe(getViewLifecycleOwner(), gameModels -> {
+            if (!gameModels.isEmpty()) {
+                recyclerView = getActivity().findViewById(R.id.unreleased_recyclerview);
 
-        GroupAdapter adapter = new GroupAdapter();
-        try {
-            Map<GameModel, Future<Bitmap>> gameBitmaps = GameButtonFactory.getUnreleasedGames(getActivity(), 500, 500);
-            for (Map.Entry<GameModel, Future<Bitmap>> entry : gameBitmaps.entrySet()) {
-                adapter.add(new GameButtonRecyclerItem(entry.getValue().get(), entry.getKey()));
+                GroupAdapter adapter = new GroupAdapter();
+
+                for (GameModel game : Objects.requireNonNull(mViewModel.unrealeasedGames.getValue())) {
+                    adapter.add(new GameButtonRecyclerItem(game));
+                }
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
             }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-        mViewModel = ViewModelProviders.of(this).get(ProfileUnreleasedViewModel.class);
+        });
         // TODO: Use the ViewModel
     }
 

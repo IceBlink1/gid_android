@@ -101,24 +101,19 @@ public class GameActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.add_wishlist_button);
         button.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        App.getUserApi().addGame(App.getToken(),
-                                new AddGamePostModel(model.getId())).
-                                enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                v -> App.getUserApi().addGame(App.getToken(),
+                        new AddGamePostModel(model.getId())).
+                        enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                    }
+                            }
 
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                        t.printStackTrace();
-                                    }
-                                });
-                    }
-                }
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        })
         );
     }
 
