@@ -6,16 +6,15 @@
     android:layout_height="300dp"
     android:clickable="true"
     android:focusable="true"
-    android:padding="0dp">
+    android:padding="2dp"
+    android:layout_margin="4dp">
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/game_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY">
-
-    </ImageButton>
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:id="@+id/icon_linear_layout"
@@ -23,6 +22,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:background="#AA000000"
-
         android:orientation="horizontal" />
 </com.google.android.material.card.MaterialCardView>

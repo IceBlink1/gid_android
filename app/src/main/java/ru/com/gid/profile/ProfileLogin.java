@@ -27,7 +27,7 @@ import ru.com.gid.R;
 
 public class ProfileLogin extends Fragment {
 
-    private ProfileLoginViewModel mViewModel;
+    //private ProfileLoginViewModel mViewModel;
 
     public static ProfileLogin newInstance() {
         return new ProfileLogin();
@@ -42,7 +42,7 @@ public class ProfileLogin extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ProfileLoginViewModel.class);
+      //  mViewModel = ViewModelProviders.of(this).get(ProfileLoginViewModel.class);
         // TODO: Use the ViewModel
 
         Button steamLogin = getActivity().findViewById(R.id.steam_login_button);

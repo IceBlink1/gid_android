@@ -12,6 +12,7 @@
         style="@style/GIDTheme"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="?attr/actionBarSize"
         app:menu="@menu/top_profile_menu">
 
         <com.google.android.material.tabs.TabLayout

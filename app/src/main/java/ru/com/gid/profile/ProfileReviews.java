@@ -16,7 +16,7 @@ import ru.com.gid.R;
 
 public class ProfileReviews extends Fragment {
 
-    private ProfileReviewsViewModel mViewModel;
+    //private ProfileReviewsViewModel mViewModel;
 
     public static ProfileReviews newInstance() {
         return new ProfileReviews();
@@ -31,7 +31,7 @@ public class ProfileReviews extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ProfileReviewsViewModel.class);
+      //  mViewModel = ViewModelProviders.of(this).get(ProfileReviewsViewModel.class);
         // TODO: Use the ViewModel
     }
 
