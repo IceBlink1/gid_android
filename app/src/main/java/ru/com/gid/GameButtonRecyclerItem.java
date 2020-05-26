@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
@@ -28,30 +30,40 @@ public class GameButtonRecyclerItem extends Item {
 
     @Override
     public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
-        ImageButton button = viewHolder.itemView.findViewById(R.id.game_image);
-        Picasso.get().load(model.getHeaderImage()).into(button);
+        ImageView button = viewHolder.itemView.findViewById(R.id.game_image);
+        CardView cw = viewHolder.itemView.findViewById(R.id.game_button_card_view);
+        cw.setPreventCornerOverlap(false);
+        Glide.with(viewHolder.itemView.getContext()).load(model.getHeaderImage()).into(button);
         button.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), GameActivity.class);
             intent.putExtra("model", model);
             v.getContext().startActivity(intent);
         });
         LinearLayout iconLayout = viewHolder.itemView.findViewById(R.id.icon_linear_layout);
-        if (model.getPlatforms().contains("mac")) {
-            ImageView icon = new ImageView(viewHolder.itemView.getContext());
-            icon.setBackgroundResource(R.drawable.ic_mac);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(5, 10, 10, 10);
 
-            iconLayout.addView(icon);
-        }
+        iconLayout.removeAllViews();
+
         if (model.getPlatforms().contains("windows")) {
             ImageView icon = new ImageView(viewHolder.itemView.getContext());
             icon.setBackgroundResource(R.drawable.ic_windows);
-            iconLayout.addView(icon);
+            iconLayout.addView(icon, layoutParams);
         }
+
+        if (model.getPlatforms().contains("mac")) {
+            ImageView icon = new ImageView(viewHolder.itemView.getContext());
+            icon.setBackgroundResource(R.drawable.ic_mac);
+            iconLayout.addView(icon, layoutParams);
+        }
+
 
         if (model.getPlatforms().contains("linux")) {
             ImageView icon = new ImageView(viewHolder.itemView.getContext());
             icon.setBackgroundResource(R.drawable.ic_linux);
-            iconLayout.addView(icon);
+            iconLayout.addView(icon, layoutParams);
         }
     }
 
